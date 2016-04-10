@@ -157,14 +157,14 @@ fibloop:
 		MOV		R3, R5
 		BRN 	fibloop
 print0:		
-		OUT		R3, 0X04
+		OUT		R3, 0X04			; print 0
 		BRN 	opselect
 printfib:	
-		OUT 	R4, 0X04
+		OUT 	R4, 0X04			; print fibonacci number
 		BRN		opselect
 print255:	
-		OUT		R29, 0X04
-		BRN		opselect
+		OUT		R29, 0X04			; print 255 because location corresponds to 
+		BRN		opselect			; to large of a number
 ;--------------------------------------------------------------------------------------
 ;- Option 5 : Reverse
 ;- Registers Used: R2, R3
@@ -252,23 +252,23 @@ armsum:	MOV		R3, REMAINDER
 		MOV		R5, 0x00
 		MOV		R6, 0x00
 		CMP		R0, 0x0A
-		BRCS    sdigit
+		BRCS    sdigit				; if single digit, 1st power
 sumloop1:
 		ADD		R5, REMAINDER				
 		SUB		R3, 0x01			; Addition Counting
 		BRNE 	sumloop1
 		CMP		R0, 0x64
-		BRCS	ddigit
+		BRCS	ddigit				; if a double digit number, only 2nd power
 sumloop2:	
 		ADD		R6, R5
 		SUB		R4, 0x01			; Power Counting
 		BRNE 	sumloop2
 		BREQ	armend
 sdigit:
-		MOV		R6, REMAINDER
+		MOV		R6, REMAINDER		; to return the correct value
 		RET
 ddigit:
-		MOV		R6, R5
+		MOV		R6, R5				; to return the correct value
 		RET
 armend:	
 		RET
