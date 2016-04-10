@@ -1,0 +1,52 @@
+Lab 1
+
+Reads in a value from port 0x01.
+This value is the number worked with (Num).
+The number can have a value from 0‐>255 (unsigned decimal).
+
+Read in a value from port 0x02.
+This value serves as the option selector
+
+Options
+
+0. End the program
+
+1. Determine if the number is odd or even.
+    -If Odd
+        Print the value of 0x01 to port 0x01
+    -If Even
+        Print the value of 0x02 to port 0x01
+        
+2. Determine if the number is prime.
+    -If Prime
+        Print the value of 0x01 to port 0x02
+    -If Not Prime
+        Print the value of 0x02 to port 0x02
+        
+3. Determine if the number is perfect.
+    -If Perfect
+        Print the value of 0x01 to port 0x03
+    -If Not Perfect
+        Print the value of 0x02 to port 0x03
+        
+4. Determine the value in the Fibonacci sequence of the number’s position
+    Printed Number is sent to port 0x04
+      -If the Output number would be larger then 255, 255 is printed instead. 
+      
+5. Determine the value of the number if its bits are reversed.
+    Print to 0x05
+    
+6. Determine the result of a division operation.
+    Accepts a number from port 0xFF (divisor)
+    Divides the original number by that amount
+    -If divisor is greater then Num
+      Print 255 to port 0x06
+      Print 255 to port 0x07
+    -If the divisor is less then or equal to Num
+      Print the quotient to port 0x06
+      Print the remainder to port 0x07
+      
+7. Choose your own operation
+  send the result to port 0x08
+  
+After each option the user is redirected back to the menu.
