@@ -215,7 +215,7 @@ sumloop1:	ADD	R5, REMAINDER
 		SUB	R3, 0x01			; Addition Counting
 		BRNE	sumloop1
 sumloop2:	ADD	R6, R5
-		SUB		R4, 0x01		; Power Counting
+		SUB	R4, 0x01		; Power Counting
 		BRNE	sumloop2
 armend:		RET
 
