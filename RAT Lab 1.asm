@@ -7,9 +7,9 @@
 
 .DEF		INPUT		= 	R0
 .DEF		OPTION		= 	R1
-.DEF		ONE			= 	R30
-.DEF		TWO			=  	R31
-.DEF		MAX			= 	R29
+.DEF		ONE		= 	R30
+.DEF		TWO		=  	R31
+.DEF		MAX		= 	R29
 	
 .DEF 		DIVISOR		= 	R10
 .DEF		QUOTIENT	= 	R11
