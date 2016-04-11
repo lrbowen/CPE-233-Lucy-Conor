@@ -74,10 +74,10 @@ opselect:
 ;--------------------------------------------------------------------------------------
 odd:	TEST	INPUT, 0X01			; Zero flag fliped if Zero in LSB
 		BRNE	printodd			; print odd branch, otherwise print even
-		OUT		R31, 0x01			; print 1 if odd
+		OUT		R31, 0x01			; print 2 if even
 		BRN 	opselect
 printodd:	
-		OUT		R30, 0x01			; print 2 if even
+		OUT		R30, 0x01			; print 1 if odd
 		BRN 	opselect
 ;--------------------------------------------------------------------------------------
 ;- Option 2 : Prime Test
@@ -123,7 +123,7 @@ perfloop:
 		CALL	division
 		CMP		REMAINDER, 0X00
 		BRNE	perfloop
-		ADD		R3, R2				; bug- happens an extra time
+		ADD		R3, R2				
 		CMP		R2, INPUT
 		BRCS	perfloop
 perfcheck:	
@@ -144,7 +144,7 @@ fibonacci:
 		MOV		R4, 0X01			; initialize vars for fibonacci
 		CMP		R2, R0				; check if 0
 		BREQ	print0
-		CMP		R2, MAX_FIB			; check if the value goes beyond 255
+		CMP		R0, MAX_FIB			; check if the value goes beyond 255
 		BRCC	print255
 		ADD		R2, 0X01			; add iteration	
 fibloop:	
@@ -157,13 +157,14 @@ fibloop:
 		MOV		R3, R5
 		BRN 	fibloop
 print0:		
-		OUT		R3, 0X04
+		OUT		R3, 0X04			; print 0
 		BRN 	opselect
 printfib:	
-		OUT 	R4, 0X04
+		OUT 	R4, 0X04			; print fibonacci number
 		BRN		opselect
 print255:	
-		OUT		R29, 0X04
+		OUT		R29, 0X04			; print 255 because location corresponds to 
+		BRN		opselect			; to large of a number
 ;--------------------------------------------------------------------------------------
 ;- Option 5 : Reverse
 ;- Registers Used: R2, R3
@@ -250,16 +251,27 @@ armsum:	MOV		R3, REMAINDER
 		MOV		R4, REMAINDER		; Power Counter
 		MOV		R5, 0x00
 		MOV		R6, 0x00
-				
+		CMP		R0, 0x0A
+		BRCS    sdigit				; if single digit, 1st power
 sumloop1:
 		ADD		R5, REMAINDER				
 		SUB		R3, 0x01			; Addition Counting
 		BRNE 	sumloop1
+		CMP		R0, 0x64
+		BRCS	ddigit				; if a double digit number, only 2nd power
 sumloop2:	
 		ADD		R6, R5
 		SUB		R4, 0x01			; Power Counting
 		BRNE 	sumloop2
-armend:	RET
+		BREQ	armend
+sdigit:
+		MOV		R6, REMAINDER		; to return the correct value
+		RET
+ddigit:
+		MOV		R6, R5				; to return the correct value
+		RET
+armend:	
+		RET
 
 
 end:	BRN 	end
